@@ -1,1 +1,2 @@
-"# architrixs.github.io" 
+## Architrixs' Homepage
+---
