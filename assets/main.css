@@ -1124,8 +1124,8 @@ section#two {
 	width: 2.5em;
 }
 
-#header nav a:hover {
-	font-size: 1.1em;
+#header nav i:hover {
+	font-size: 2.1em;
 }
 
 #header nav a:hover:before {
