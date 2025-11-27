@@ -16,10 +16,9 @@
     --color-royal-blue:  #2b4c7e;
     --color-sage:        #8FBC8F;
     --color-wireframe:   #0a0a0a;
-    
-    /* Surplus Palette Additions */
-    --color-burnt-orange: #D35400;
+    --color-burnt-orange: #BF360C;
     --color-graphite:     #2c3e50;
+	--color-wattpad: #FF6122; /* Signature Wattpad Orange */
 }
 
 /* --- RESET --- */
@@ -83,6 +82,7 @@ a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
 .bg-yellow      { background-color: #E3C878; color: #222; }
 .bg-burnt-orange{ background-color: var(--color-burnt-orange); color: white; }
 .bg-graphite    { background-color: var(--color-graphite); color: white; }
+.bg-wattpad { background-color: var(--color-wattpad); color: white; }
 
 /* The Deep Space Look for Echo */
 .bg-deep-purple { 
@@ -134,10 +134,12 @@ a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
 .pos-center    { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; z-index: 2; flex-direction: column;}
 
 /* --- HERO ANIMATION --- */
+
 .hero-card #wrapper {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     overflow: hidden; border-radius: 16px;
 }
+
 #bg {
     animation: bg 60s linear infinite;
     background: #348cb2 url("images/bg.jpg") bottom left;
@@ -145,27 +147,77 @@ a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
     height: 100%; left: 0; opacity: 1; position: absolute; top: 0;
     width: 4500px; background-size: 2250px auto;
 }
+
+/* Adds a dark gradient from bottom-up so text is always readable against snow */
 #overlay {
-    background-image: url("images/overlay-pattern.png"), url("images/overlay.svg");
-    background-size: auto, cover;
+    background: 
+        linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 100%),
+        url("images/overlay-pattern.png");
+    background-size: cover, auto;
     height: 100%; width: 100%; position: absolute; z-index: 1;
 }
+
 #main {
     height: 100%; width: 100%; position: absolute; z-index: 2;
-    display: flex; justify-content: center; align-items: center;
+    display: flex; 
+    box-sizing: border-box;
 }
-#header { text-align: center; }
-#header h1 { font-size: 3.5rem; font-weight: 900; letter-spacing: -0.035em; line-height: 1em; }
-#header nav { margin: 1.5em 0 0 0; }
-#header nav ul { display: flex; gap: 15px; justify-content: center; }
-#header nav a {
-    border: solid 1px rgba(255,255,255,0.3); border-radius: 100%;
-    display: inline-block; width: 3em; height: 3em; line-height: 3em; text-align: center; font-size: 1.25em;
+
+#header h1 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 6vw, 5.5rem); /* Responsive Giant Text */
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    color: #fff;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Deep shadow for pop */
+    transform: translateX(-2px); /* Visual alignment */
 }
-#header nav a:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+/* Social Control Panel (The Right Side Icons) */
+.hero-controls {
+    display: flex;
+    flex-direction: column; /* Stack vertically on desktop */
+    gap: 15px;
+    z-index: 5;
+}
+
+.hero-controls a {
+    display: flex; align-items: center; justify-content: center;
+    width: 50px; height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.hero-controls a:hover {
+    background: white;
+    color: black;
+    transform: translateX(-5px); /* Slide left slightly on hover */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+/* Mobile Adjustment for Hero */
+@media screen and (max-width: 768px) {
+    #main {
+        flex-direction: column;
+        align-items: flex-start !important;
+        justify-content: flex-end !important;
+        padding: 25px !important;
+    }
+    .hero-controls {
+        flex-direction: row; /* Horizontal on mobile */
+        margin-top: 20px;
+        width: 100%;
+    }
+    #header h1 { font-size: 3.5rem; }
+}
 
 @keyframes bg { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-2250px, 0, 0); } }
-body.is-preload * { animation: none !important; transition: none !important; }
 
 /* --- SURPLUS ANIMATIONS (Marquee, Radar, Pulse) --- */
 
