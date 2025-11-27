@@ -5,15 +5,17 @@
 
 :root {
     /* Palette */
-    --color-coral:       #E57B73;
-    --color-olive:       #A9B183;
-    --color-cream:       #F3E9B5;
-    --color-silver:      #CDCED1;
-    --color-teal:        #5D9B84;
+	--bg-body:           #121212;
+	--color-cream:       #2D2D2D; /* Cream becomes Dark Grey */
+    --color-dark:        #000000; /* Dark becomes Pitch Black */
+    --color-olive:       #2F3E2F; /* Olive becomes Deep Forest */
+    --color-coral:       #8B0000; /* Coral becomes Deep Crimson */
+    --color-teal:        #1A3A3A; /* Teal becomes Dark Cyan */
+    --color-silver:      #444444; /* Silver becomes Gunmetal */
+    --color-tech-green:  #1e4d2b; /* Tech Green darkens */
+    --color-royal-blue:  #122038; /* Royal Blue darkens */
+
     --color-deep-purple: #1a0b2e;
-    --color-tech-green:  #6B8E23;
-    --color-dark:        #1a1b26;
-    --color-royal-blue:  #2b4c7e;
     --color-sage:        #8FBC8F;
     --color-wireframe:   #0a0a0a;
     --color-burnt-orange: #BF360C;
@@ -21,13 +23,51 @@
 	--color-wattpad: #FF6122; /* Signature Wattpad Orange */
 }
 
+/* LIGHT Mode Overrides */
+/* This re-maps the variables when the body has data-theme="light" */
+[data-theme="light"] {
+	--bg-body:           #e0e0e0;
+    --color-coral:       #E57B73;
+    --color-olive:       #A9B183;
+    --color-cream:       #F3E9B5;
+    --color-silver:      #CDCED1;
+    --color-teal:        #5D9B84;
+    --color-tech-green:  #6B8E23;
+    --color-dark:        #1a1b26;
+    --color-royal-blue:  #2b4c7e;
+    
+}
+
+/* Theme Toggle Button Styling */
+.theme-btn {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.5; /* Inactive state */
+    background: rgba(255,255,255,0.1);
+}
+
+.theme-btn.active {
+    opacity: 1;
+    background: white;
+    color: black;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.theme-btn:hover { opacity: 1; }
+
 /* --- RESET --- */
 html, body, div, span, h1, h2, h3, p, a, img, ul, li, header, nav {
     margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline;
 }
 body {
-    line-height: 1; background: #e0e0e0; color: #fff;
+    line-height: 1; background: var(--bg-body); color: #fff;
     font-family: 'Source Sans Pro', sans-serif; overflow-x: hidden;
+	transition: background-color 1.2s cubic-bezier(0.22, 1, 0.36, 1), color 1.2s ease;
 }
 ol, ul { list-style: none; }
 a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
@@ -57,12 +97,32 @@ a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
 }
 
 /* --- CARDS --- */
+/* main.css */
+
 .bento-item {
-    border-radius: 16px; position: relative; overflow: hidden;
-    display: flex; flex-direction: column;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-    background-color: var(--color-dark); min-height: 240px;
+    border-radius: 16px; 
+    position: relative; 
+    overflow: hidden;
+    display: flex; 
+    flex-direction: column;
+    min-height: 240px;
+    background-color: var(--color-dark); /* Ensure default is set */
+    
+    /* 1. PHYSICS (For Hover) */
+    transform: scale(1); /* Prepare for scale animation */
+    
+    /* 2. THEME TRANSITION (The Ripple Magic) */
+    /* We transition background and color so they morph smoothly */
+    transition: 
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+        box-shadow 0.4s ease,
+        background-color 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+        color 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        
+    /* Optimization for smoother painting */
+    will-change: transform, background-color;
 }
+
 .bento-item:hover {
     transform: translateY(-4px) scale(1.01);
     box-shadow: 0 20px 40px rgba(0,0,0,0.25); z-index: 10;

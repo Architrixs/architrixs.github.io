@@ -4,13 +4,21 @@
     <title>Architrixs | Portfolio</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <script>
+        // Check local storage. If 'light' is saved, apply the override immediately.
+        // Otherwise, do nothing (let it default to Dark CSS).
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    </script>
     <link rel="stylesheet" href="assets/main.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <meta name="description" content="Architrixs - Software Engineer & Cyborg. Portfolio of experiments, projects, and thoughts.">
     <meta property="og:title" content="Architrixs | Portfolio">
     <meta property="og:description" content="Software Engineer // Cyborg. View my projects and experiments.">
-    <meta property="og:image" content="https://architrixs.github.io/assets/images/social-preview.jpg"> <meta property="og:url" content="https://architrixs.github.io/">
+    <meta property="og:image" content="https://architrixs.github.io/assets/images/social-preview.png"> <meta property="og:url" content="https://architrixs.github.io/">
     <meta name="twitter:card" content="summary_large_image">
     <script type="module">
         // Using esm.sh to load your package directly from npm without a bundler
@@ -103,18 +111,40 @@
             <div class="noise-overlay"></div>
             <div style="position: absolute; top: -20px; left: -20px; width: 150%; height: 120%; opacity: 0.05; pointer-events: none; transform: rotate(-10deg); word-break: break-all; line-height: 0.8;">
                 <div style="font-family: sans-serif; font-weight: 900; font-size: 3rem; color: black;">
-                    FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL
+                    FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL
                 </div>
             </div>
             <div class="pos-btm-left">
                 <span class="type-tech" style="color: #666;">ARCHIVE_01</span>
                 <h3 class="type-poster" style="font-size: 2rem; color: #333; margin-top: 5px;">FAILED<br>REGISTRY</h3>
-                <p class="type-editorial" style="font-size: 1rem; margin-top: 15px; color: #444; border-top: 1px solid #999; padding-top: 10px;">
+                <p class="type-editorial" style="font-size: 1rem; margin-top: 15px; color: #1d1d1d; border-top: 1px solid #999; padding-top: 10px;">
                     "Next attempt loading..."
                 </p>
             </div>
         </a>
+        <div class="bento-item bg-cream span-1x1" id="theme-card">
+            <div class="noise-overlay"></div>
+            
+            <div class="pos-top-left">
+                <span class="type-tech" style="color: #666;">SYS.THEME</span>
+            </div>
 
+            <div class="pos-center" style="flex-direction: row; gap: 20px;">
+                
+                <button class="theme-btn active" id="btn-ra" onclick="setTheme('light')">
+                    <i class="ri-sun-fill" style="font-size: 1.5rem; color: #FDB813;"></i>
+                </button>
+
+                <button class="theme-btn" id="btn-lu" onclick="setTheme('dark')">
+                    <i class="ri-moon-clear-fill" style="font-size: 1.5rem; color: #6c5ce7;"></i>
+                </button>
+
+            </div>
+
+            <div class="pos-btm-right">
+                <div id="theme-status-dot" class="pulse-dot" style="background-color: #FDB813; box-shadow: none;"></div>
+            </div>
+        </div>
         <a href="https://architrixs.github.io/github-sponsors-tracker/" class="bento-item bg-tech-green span-1x1">
             <div class="noise-overlay"></div>
             
@@ -190,10 +220,28 @@
 
         <a href="/devdailydigest/" class="bento-item bg-olive span-1x1">
             <div class="noise-overlay"></div>
-            <div class="pos-btm-left">
-                <h3 class="type-editorial">Dev Digest</h3>
-                <p class="type-tech" style="margin-top: 5px;">Read Blog &rarr;</p>
+            
+            <div style="position: absolute; top: -15px; right: -10px; font-family: 'Georgia', serif; font-size: 8rem; opacity: 0.15; font-style: italic; line-height: 1; pointer-events: none;">
+                ¶
             </div>
+
+            <div class="pos-top-left">
+                <span class="type-tech" style="border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 2px; font-size: 0.6rem;">VOL. 01</span>
+            </div>
+
+            <div class="pos-center" style="align-items: flex-start; opacity: 0.4; gap: 6px; width: 50%; transform: rotate(-5deg) translateX(20px);">
+                <div style="height: 3px; width: 100%; background: white; border-radius: 2px;"></div>
+                <div style="height: 3px; width: 85%; background: white; border-radius: 2px;"></div>
+                <div style="height: 3px; width: 95%; background: white; border-radius: 2px;"></div>
+                <div style="height: 3px; width: 60%; background: white; border-radius: 2px;"></div>
+            </div>
+
+            <div class="pos-btm-left">
+                <h3 class="type-editorial" style="font-size: 1.6rem; margin-bottom: 2px;">Dev Digest</h3>
+                <p class="type-tech" style="opacity: 0.8; font-size: 0.6rem;">// ENGINEERING NOTES</p>
+            </div>
+            
+            <i class="ri-arrow-right-line pos-btm-right" style="font-size: 1.2rem; opacity: 0;"></i>
         </a>
 
         <div class="bento-item bg-yellow span-1x1">
@@ -237,7 +285,7 @@
             <div class="radar-grid">
                 <div class="radar-sweep"></div>
             </div>
-            <span class="type-tech pos-top-left">LOC: GURIGRAM, IN</span>
+            <span class="type-tech pos-top-left">LOC: GURUGRAM, IN</span>
             <span class="type-tech pos-btm-right">TARGET ACQUIRED</span>
         </div>
 
@@ -268,8 +316,79 @@
     </div>
 
     <script>
-        window.onload = function() { document.body.classList.remove('is-preload'); }
+        window.onload = function() { 
+            document.body.classList.remove('is-preload'); 
+            
+            // SYNC BUTTONS ON LOAD
+            // We check if the HEAD script applied the 'light' attribute
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const btnRa = document.getElementById('btn-ra');
+            const btnLu = document.getElementById('btn-lu');
+            const statusDot = document.getElementById('theme-status-dot');
+
+            if (currentTheme === 'light') {
+                // Set UI to Light Mode state
+                if(btnRa) btnRa.classList.add('active');
+                if(btnLu) btnLu.classList.remove('active');
+                if(statusDot) statusDot.style.backgroundColor = '#FDB813';
+            } else {
+                // Default Dark Mode state (No attribute present)
+                if(btnLu) btnLu.classList.add('active');
+                if(btnRa) btnRa.classList.remove('active');
+                if(statusDot) statusDot.style.backgroundColor = '#6c5ce7';
+            }
+        }
+
         window.ontouchmove = function() { return true; }
+
+        // THEME SWITCHER LOGIC (Logic Flipped: Light is now the Attribute)
+        function setTheme(mode, animate = true) {
+            const html = document.documentElement; // Target <html> tag
+            const btnRa = document.getElementById('btn-ra');
+            const btnLu = document.getElementById('btn-lu');
+            const statusDot = document.getElementById('theme-status-dot');
+            const cards = document.querySelectorAll('.bento-item');
+            
+            const rippleSpeed = 100; 
+            const fadeDuration = 1200; 
+
+            // A. Save to Memory
+            localStorage.setItem('theme', mode);
+
+            // B. Trigger The Wave
+            if (animate) {
+                cards.forEach((card, index) => {
+                    card.style.transitionDelay = `${index * rippleSpeed}ms`;
+                });
+            }
+
+            // C. Apply The Theme (FLIPPED LOGIC)
+            if (mode === 'light') {
+                // LIGHT MODE: Add the override attribute
+                html.setAttribute('data-theme', 'light');
+                
+                if(btnRa) btnRa.classList.add('active');
+                if(btnLu) btnLu.classList.remove('active');
+                if(statusDot) statusDot.style.backgroundColor = '#FDB813';
+            } else {
+                // DARK MODE: Remove attribute (Fall back to :root defaults)
+                html.removeAttribute('data-theme');
+                
+                if(btnLu) btnLu.classList.add('active');
+                if(btnRa) btnRa.classList.remove('active');
+                if(statusDot) statusDot.style.backgroundColor = '#6c5ce7';
+            }
+
+            // D. Clean Up Animation Delays
+            if (animate) {
+                const totalAnimationTime = (cards.length * rippleSpeed) + fadeDuration;
+                setTimeout(() => {
+                    cards.forEach(card => {
+                        card.style.transitionDelay = '0s';
+                    });
+                }, totalAnimationTime);
+            }
+        }
     </script>
 </body>
 </html>
