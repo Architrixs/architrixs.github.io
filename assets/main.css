@@ -89,12 +89,6 @@ a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
 .span-1x1 { grid-column: span 1; grid-row: span 1; }
 .bento-hidden { display: none !important; }
 
-/* Mobile */
-@media screen and (max-width: 768px) {
-    .bento-container { display: flex; flex-direction: column; }
-    .bento-item { min-height: 250px; width: 100%; }
-    .hero-card { min-height: 400px; }
-}
 
 /* --- CARDS --- */
 /* main.css */
@@ -262,19 +256,117 @@ a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
 }
 
 /* Mobile Adjustment for Hero */
+/* --- MOBILE REPAIR PATCH --- */
 @media screen and (max-width: 768px) {
-    #main {
+    
+    /* 1. Reset Container Layout */
+    .bento-container {
+        display: flex;
         flex-direction: column;
-        align-items: flex-start !important;
-        justify-content: flex-end !important;
-        padding: 25px !important;
+        padding: 10px; /* Less outer padding */
+        gap: 15px;
     }
-    .hero-controls {
-        flex-direction: row; /* Horizontal on mobile */
-        margin-top: 20px;
+
+    /* 2. Tighten Card Spacing (Crucial) */
+    .bento-item {
+        min-height: 200px; /* Allow shorter cards */
         width: 100%;
+        /* Fix overlapping text by ensuring padding clips content correctly */
+        padding: 15px; 
     }
-    #header h1 { font-size: 3.5rem; }
+
+    /* 3. Shrink Absolute Positioning */
+    /* Move everything closer to the edge so it doesn't get cut off */
+    .pos-btm-left  { bottom: 15px; left: 15px; }
+    .pos-btm-right { bottom: 15px; right: 15px; }
+    .pos-top-left  { top: 15px; left: 15px; }
+    .pos-top-right { top: 15px; right: 15px; }
+
+    /* 4. Fix Hero Card Overcrowding */
+    /* 4. HERO CARD FIX (Strict Stacking) */
+    .hero-card {
+        /* Ensure the card is tall enough to fit everything */
+        min-height: 400px !important; 
+    }
+
+    .hero-card #main {
+        /* Force a vertical column layout */
+        display: flex !important;
+        flex-direction: column !important;
+        
+        /* Push content to the bottom */
+        justify-content: flex-end !important;
+        align-items: flex-start !important;
+        
+        /* Add breathing room */
+        padding: 25px !important;
+        gap: 20px !important; /* Hard gap between Text and Icons */
+    }
+
+    /* Reset the Header (Text) */
+    .hero-card #header {
+        width: 100%;
+        margin-bottom: 0 !important;
+        text-align: left;
+    }
+
+    /* Reset the Controls (Icons) */
+    .hero-controls {
+        width: 100%;
+        display: flex !important;
+        flex-direction: row !important; /* Force Horizontal Row */
+        flex-wrap: wrap !important;
+        justify-content: flex-start !important; /* Align Left */
+        gap: 12px !important;
+        margin: 0 !important;
+    }
+
+    /* Resize Icons for Mobile Touch Targets */
+    .hero-controls a {
+        width: 48px; 
+        height: 48px;
+        font-size: 1.4rem;
+    }
+
+    /* Fix the "System Online" tag overlap */
+    .type-tech {
+        font-size: 0.65rem !important;
+        margin-bottom: 8px; /* Push title away from tag */
+        display: inline-block;
+    }
+
+    /* Ensure Title doesn't wrap awkwardly */
+    #header h1 {
+        font-size: 3.2rem !important;
+        line-height: 1.1;
+    }
+
+    /* 5. Typography Scaling */
+    .type-poster {
+        font-size: 2.5rem !important; /* Prevent massive text clipping */
+    }
+    .type-tech {
+        font-size: 0.6rem !important; /* Readable but small */
+    }
+    
+    /* 6. Specific Card Fixes */
+    
+    /* Echo Card: Fix "Daily Puzzle" getting cut off */
+    .bg-deep-purple .pos-center,
+    .bg-coral .pos-center {
+        position: absolute !important;
+        display: flex !important; flex-direction: column !important;
+        justify-content: flex-end !important; align-items: flex-start !important;
+        top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important;
+        padding: 25px !important; text-align: left !important;
+    }
+    
+    /* Move background icons for Echo/Wish U out of the way */
+    .bg-deep-purple .pos-center i,
+    .bg-coral .pos-center i {
+        position: absolute; top: 20px; right: 20px;
+        font-size: 3rem !important; opacity: 0.2; transform: none !important;
+    }
 }
 
 @keyframes bg { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-2250px, 0, 0); } }
