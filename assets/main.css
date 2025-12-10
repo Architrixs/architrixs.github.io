@@ -14,7 +14,7 @@
     --color-silver:      #444444; /* Silver becomes Gunmetal */
     --color-tech-green:  #1e4d2b; /* Tech Green darkens */
     --color-royal-blue:  #122038; /* Royal Blue darkens */
-
+    --color-brown:       #23190f; /* Brown */
     --color-deep-purple: #1a0b2e;
     --color-sage:        #8FBC8F;
     --color-wireframe:   #0a0a0a;
@@ -35,6 +35,7 @@
     --color-tech-green:  #6B8E23;
     --color-dark:        #1a1b26;
     --color-royal-blue:  #2b4c7e;
+    --color-brown:       #5c3a1a;
     
 }
 
@@ -132,6 +133,7 @@ a { text-decoration: none; color: inherit; transition: opacity 0.2s ease; }
 .bg-royal-blue  { background-color: var(--color-royal-blue); color: white; }
 .bg-sage        { background-color: var(--color-sage); color: #1a1b26; }
 .bg-dark        { background-color: #111; color: white; }
+.bg-brown        { background-color: var(--color-brown); color: white; }
 .bg-wireframe   { background-color: var(--color-wireframe); color: white; border: 1px solid #333; }
 .bg-yellow      { background-color: #E3C878; color: #222; }
 .bg-burnt-orange{ background-color: var(--color-burnt-orange); color: white; }
